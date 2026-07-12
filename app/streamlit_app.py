@@ -56,8 +56,8 @@ st.markdown("""
         to   { opacity: 1; transform: translateY(0) scale(1); }
     }
     @keyframes marquee {
-        0%   { transform: translateX(100%); }
-        100% { transform: translateX(-150%); }
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
     }
     @keyframes pulse {
         0%, 100% { opacity: 1; transform: scale(1); }
@@ -90,11 +90,15 @@ st.markdown("""
         letter-spacing: 1.5px;
         position: relative;
     }
+    .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee 32s linear infinite;
+    }
     .marquee-text {
         display: inline-block;
         white-space: nowrap;
-        animation: marquee 32s linear infinite;
-        padding-left: 100%;
+        padding-right: 80px;
         color: #FFDE4D !important;
     }
     .live-dot {
@@ -441,10 +445,12 @@ try:
 except Exception:
     predictions_logged, feedbacks_logged = 0, 0
 
+marquee_text = f"⬛ STATUS REST API: AKTIF ▸ MODEL SELEKSI: HYPERPARAMETER TUNED LINEAR SVM ▸ AKURASI EVALUASI: 88.65% ▸ F1-SCORE MACRO: 88.63% ▸ LOG DATABASE SQLITE: {predictions_logged} TRANSAKSI ▸ INPUT FEEDBACK AUDIT: {feedbacks_logged} KOREKSI ▸ FITUR BARU: INDEKS KEPUASAN PELANGGAN (IKP) "
 st.markdown(f"""
 <div class="marquee-container">
-    <div class="marquee-text">
-        STATUS REST API: AKTIF | MODEL SELEKSI: HYPERPARAMETER TUNED LINEAR SVM | AKURASI EVALUASI: 88.65% | F1-SCORE MACRO: 88.63% | LOG DATABASE SQLITE: {predictions_logged} TRANSAKSI | INPUT FEEDBACK AUDIT: {feedbacks_logged} KOREKSI | FITUR BARU: INDEKS KEPUASAN PELANGGAN (IKP)
+    <div class="marquee-track">
+        <span class="marquee-text">{marquee_text}</span>
+        <span class="marquee-text">{marquee_text}</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
