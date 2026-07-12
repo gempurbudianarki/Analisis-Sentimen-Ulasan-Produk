@@ -1,0 +1,16 @@
+[server]
+# Streamlit Cloud runs on port 8501 by default
+headless = true
+enableCORS = false
+enableXsrfProtection = false
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "dark"
+primaryColor = "#FFDE4D"
+backgroundColor = "#0a0a0a"
+secondaryBackgroundColor = "#111111"
+textColor = "#F5F5F5"
+font = "monospace"

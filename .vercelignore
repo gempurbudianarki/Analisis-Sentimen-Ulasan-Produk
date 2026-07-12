@@ -1,0 +1,33 @@
+# Vercel ignore — exclude heavy/unnecessary files from deployment bundle
+
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Training datasets (tidak dibutuhkan saat inference)
+dataset/
+
+# Reports & notebook outputs
+reports/
+
+# Local SQLite database (Vercel pakai /tmp, tidak butuh file ini)
+database/logs.db
+
+# Streamlit app (tidak dibutuhkan di Vercel)
+app/
+
+# Dev & cache files
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# Training scripts (tidak dibutuhkan saat serving)
+src/download_kaggle.py
+src/train_model.py

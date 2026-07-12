@@ -2,10 +2,16 @@ import os
 import sqlite3
 from datetime import datetime
 
-# Setup DB path
+# Setup DB path — Vercel serverless hanya bisa tulis ke /tmp
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-db_dir = os.path.join(base_dir, 'database')
-db_path = os.path.join(db_dir, 'logs.db')
+if os.environ.get("VERCEL"):
+    # Vercel: gunakan /tmp yang writable (data tidak persisten antar invocation)
+    db_dir = "/tmp"
+    db_path = "/tmp/logs.db"
+else:
+    # Lokal / Streamlit Cloud: gunakan folder database/
+    db_dir = os.path.join(base_dir, "database")
+    db_path = os.path.join(db_dir, "logs.db")
 
 def get_db_connection():
     """Returns a connection to the SQLite database."""

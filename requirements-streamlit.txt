@@ -1,0 +1,13 @@
+# ── Streamlit Community Cloud ────────────────────────────────────────────────
+# All dependencies needed to run app/streamlit_app.py
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.0
+joblib==1.4.2
+nltk==3.8.1
+PySastrawi==1.2.0
+streamlit==1.35.0
+matplotlib==3.9.0
+seaborn==0.13.2
+wordcloud==1.9.3
+requests==2.32.3

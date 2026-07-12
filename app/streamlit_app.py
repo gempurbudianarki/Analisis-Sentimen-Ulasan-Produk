@@ -20,7 +20,9 @@ st.set_page_config(
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # URL REST API Backend FastAPI
-API_URL = "http://localhost:8000/api"
+# Di Streamlit Cloud: set environment variable API_URL ke URL Vercel deployment
+# Contoh: API_URL = "https://your-project.vercel.app/api"
+API_URL = os.environ.get("API_URL", "http://localhost:8000/api")
 
 # Injeksi CSS Kustom untuk Gaya Neo-Brutalisme Premium, Animasi Halus, dan Layout Responsif
 st.markdown("""
