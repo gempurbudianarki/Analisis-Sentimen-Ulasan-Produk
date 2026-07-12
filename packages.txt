@@ -1,3 +1,1 @@
-# System-level packages needed by Streamlit Community Cloud
-# libgomp1 dibutuhkan oleh scikit-learn (OpenMP threading)
 libgomp1
