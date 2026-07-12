@@ -8,16 +8,30 @@ class SentimentPredictor:
         model_path = os.path.join(base_dir, 'models', 'model_sentimen.joblib')
         vectorizer_path = os.path.join(base_dir, 'models', 'vectorizer.joblib')
         
-        # Check if model files exist
-        if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
-            raise FileNotFoundError(
-                f"Model or Vectorizer file not found. "
-                f"Please run 'python src/train_model.py' first to train and save the model."
-            )
-            
-        # Load artifacts
-        self.model = joblib.load(model_path)
-        self.vectorizer = joblib.load(vectorizer_path)
+        # Load artifacts with auto-retrain fallback on mismatch
+        try:
+            # Check if model files exist
+            if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
+                raise FileNotFoundError("Model files missing.")
+            self.model = joblib.load(model_path)
+            self.vectorizer = joblib.load(vectorizer_path)
+        except Exception as e:
+            print(f"[PREDICTOR] Gagal memuat model ({e}). Menjalankan retrain otomatis...")
+            try:
+                # Import and run training script dynamically
+                import sys
+                sys.path.insert(0, os.path.join(base_dir, 'src'))
+                from train_model import main as train_main
+                train_main()
+                
+                # Reload after training
+                self.model = joblib.load(model_path)
+                self.vectorizer = joblib.load(vectorizer_path)
+                print("[PREDICTOR] Retrain otomatis berhasil dan model dimuat.")
+            except Exception as retrain_error:
+                raise RuntimeError(
+                    f"Gagal melatih ulang model secara otomatis: {retrain_error}"
+                ) from e
         
         # Initialize preprocessor
         self.preprocessor = ReviewPreprocessor()
