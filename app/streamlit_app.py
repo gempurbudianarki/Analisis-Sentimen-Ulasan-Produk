@@ -61,6 +61,12 @@ st.markdown("""
         background-color: #FAF6EE !important;
         color: #000000 !important;
     }
+    /* Sembunyikan elemen bawaan Streamlit untuk publik */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    div[data-testid="stHeader"] {visibility: hidden;}
+    .stDeployButton {display: none !important;}
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Space Grotesk', sans-serif;
         font-weight: 800 !important;
