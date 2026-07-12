@@ -1,4 +1,5 @@
-# ── Semua dependencies (Vercel FastAPI + Streamlit Cloud) ───────────────────
+# ── Semua dependencies untuk Streamlit Cloud (FastAPI + Streamlit all-in-one) ─
+# FastAPI runs as background thread inside Streamlit process
 pandas==2.2.2
 numpy==1.26.4
 scikit-learn==1.5.0

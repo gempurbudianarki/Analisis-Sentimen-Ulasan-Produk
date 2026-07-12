@@ -1,5 +1,15 @@
 import os
 import sys
+import threading
+import time
+
+# ── Path setup (harus sebelum import lokal) ──────────────────────────────────
+_base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _base_dir not in sys.path:
+    sys.path.insert(0, _base_dir)
+if os.path.join(_base_dir, 'src') not in sys.path:
+    sys.path.insert(0, os.path.join(_base_dir, 'src'))
+
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -16,13 +26,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Definisikan base_dir untuk path lokal
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Path base direktori proyek
+base_dir = _base_dir
 
-# URL REST API Backend FastAPI
-# Di Streamlit Cloud: set environment variable API_URL ke URL Vercel deployment
-# Contoh: API_URL = "https://your-project.vercel.app/api"
-API_URL = os.environ.get("API_URL", "http://localhost:8000/api")
+# ── Jalankan FastAPI sebagai background thread (sekali per proses) ───────────
+@st.cache_resource(show_spinner="⚙️ Memuat model & server API...")
+def _start_fastapi_server():
+    """Start FastAPI+uvicorn in a daemon thread. Cached so it only runs once."""
+    import uvicorn
+    from src.api import app as _fastapi_app
+
+    def _run():
+        uvicorn.run(_fastapi_app, host="127.0.0.1", port=8000, log_level="error")
+
+    t = threading.Thread(target=_run, daemon=True, name="fastapi-bg")
+    t.start()
+    # Beri waktu server untuk inisialisasi model & DB
+    time.sleep(4)
+    return "ok"
+
+_start_fastapi_server()
+
+# URL REST API — selalu localhost karena FastAPI jalan di proses yang sama
+API_URL = "http://127.0.0.1:8000/api"
 
 # Injeksi CSS Kustom untuk Gaya Neo-Brutalisme Premium, Animasi Halus, dan Layout Responsif
 st.markdown("""
