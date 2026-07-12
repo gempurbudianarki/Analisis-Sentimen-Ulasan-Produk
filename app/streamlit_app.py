@@ -559,8 +559,14 @@ with st.sidebar:
             """, unsafe_allow_html=True)
             
         st.markdown("""
-        <div style="background-color: #60A5FA; border: 4px solid #000000; padding: 1rem; font-weight: 800; text-align: center; text-transform: uppercase;">
+        <div style="background-color: #60A5FA; border: 4px solid #000000; padding: 1rem; font-weight: 800; text-align: center; text-transform: uppercase; box-shadow: 4px 4px 0px #000000;">
             CORE DEVELOPMENT TEAM
+            <hr style="border: 1.5px solid #000000; margin: 0.5rem 0;">
+            <div style="text-align: left; font-size: 0.85rem; font-family: 'Space Grotesk', sans-serif; text-transform: none; font-weight: bold; line-height: 1.5; color: #000000;">
+                ▪️ Gempur Budi Anarki<br>
+                ▪️ Darul Aman<br>
+                ▪️ Iqbal Pratama
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
