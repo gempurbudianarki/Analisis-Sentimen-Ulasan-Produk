@@ -886,7 +886,7 @@ if api_active:
         cm_path = os.path.join(base_dir, 'app', 'confusion_matrix.png')
         if os.path.exists(cm_path):
             with col_cm_img:
-                st.image(cm_path, caption="Confusion Matrix pada Data Uji", use_container_width=True)
+                st.image(cm_path, caption="Confusion Matrix pada Data Uji", use_column_width=True)
             with col_cm_desc:
                 st.markdown("""
                 <div class="brutalist-card" style="height: 100%;">
